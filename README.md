@@ -130,6 +130,12 @@ Client with the overriden target.
 
 This method allows you to retrieve the target URL specified in the WSDL file.
 
+#### returningRawResponses()
+
+Returns a new Client instance that returns raw responses instead of responses parsed by the SoapClient class.
+You can use this when you want to retrieve the cookies, or other headers of the response, or just parse the
+response yourself.
+
 ### Proxy
 
 The `Proxy` class wraps an existing [`Client`](#client) instance in order to ease calling
