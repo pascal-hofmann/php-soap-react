@@ -34,6 +34,7 @@ class Client
         $this->encoder = $encoder;
         $this->decoder = $decoder;
         $this->rawResponses = false;
+        $this->rawResponseObjects = false;
     }
 
     public function soapCall($name, $args)
@@ -55,7 +56,7 @@ class Client
     public function handleResponse(Response $response)
     {
         if ($this->rawResponseObjects) {
-            return $response
+            return $response;
         } else if ($this->rawResponses) {
             return (string) $response->getBody();
         } else {
@@ -85,7 +86,7 @@ class Client
         return $copy;
     }
 
-    public function returningResponseObject()
+    public function returningResponseObjects()
     {
         $copy = clone $this;
         $copy->rawResponseObjects = true;
