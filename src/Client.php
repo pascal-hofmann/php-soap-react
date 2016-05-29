@@ -17,6 +17,7 @@ class Client
     private $encoder;
     private $decoder;
     private $rawResponses;
+    private $rawResponseObjects;
 
     public function __construct($wsdl, Browser $browser, ClientEncoder $encoder = null, ClientDecoder $decoder = null)
     {
@@ -53,7 +54,9 @@ class Client
 
     public function handleResponse(Response $response)
     {
-        if ($this->rawResponses) {
+        if ($this->rawResponseObjects) {
+            return $response
+        } else if ($this->rawResponses) {
             return (string) $response->getBody();
         } else {
             return $this->decoder->decode((string) $response->getBody());
@@ -79,6 +82,13 @@ class Client
     {
         $copy = clone $this;
         $copy->rawResponses = true;
+        return $copy;
+    }
+
+    public function returningResponseObject()
+    {
+        $copy = clone $this;
+        $copy->rawResponseObjects = true;
         return $copy;
     }
 
