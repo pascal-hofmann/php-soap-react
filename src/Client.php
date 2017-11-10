@@ -43,14 +43,17 @@ class Client
         }
 
         return $this->browser->send($request)->then(
-            array($this, 'handleResponse'),
+            function (ResponseInterface $response) use ($name, $args)
+            {
+                return $this->handleResponse($response, $name, $args);
+            },
             array($this, 'handleError')
         );
     }
 
-    public function handleResponse(ResponseInterface $response)
+    public function handleResponse(ResponseInterface $response, $name, $args)
     {
-        return $this->decoder->decode((string)$response->getBody());
+        return $this->decoder->decode((string)$response->getBody(), $name, $args);
     }
 
     public function handleError(Exception $error)
