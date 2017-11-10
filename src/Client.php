@@ -110,4 +110,12 @@ class Client
 
         return $copy;
     }
+
+    public function withHeaders(array $headers)
+    {
+        $copy = clone $this;
+        $copy->encoder = $this->encoder->withHeaders($headers);
+
+        return $copy;
+    }
 }

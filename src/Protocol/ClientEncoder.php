@@ -9,6 +9,7 @@ class ClientEncoder extends SoapClient
 {
     private $request       = null;
     private $requestTarget = null;
+    private $headers       = array();
 
     public function encode($name, $args)
     {
@@ -32,12 +33,20 @@ class ClientEncoder extends SoapClient
                 'SOAPAction' => (string)$action,
                 'Content-Type' => 'text/xml; charset=utf-8',
                 'Content-Length' => strlen($request)
-            ),
+            ) + $this->headers,
             (string)$request
         );
 
         // do not actually block here, just pretend we're done...
         return '';
+    }
+
+    public function withHeaders(array $headers)
+    {
+        $copy = clone $this;
+        $copy->headers = $headers;
+
+        return $copy;
     }
 
     public function withRequestTarget($requestTarget)

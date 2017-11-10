@@ -166,6 +166,12 @@ assert('http://example.com/soap/service' == $client->getLocation(0));
 
 Passing a `$function` not defined in the WSDL file will throw a `SoapFault`. 
 
+#### withHeaders(array $headers)
+
+This method allows you to specify HTTP headers used when making SOAP calls. It returns a new Client instance
+that's configured to use the specified headers.
+
+
 #### withRequestTarget($requestTarget)
 
 This method allows you to change the destination of your SOAP calls. It returns a new Client instance
